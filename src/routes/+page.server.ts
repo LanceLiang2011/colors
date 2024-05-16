@@ -3,6 +3,31 @@ import { OPENAI_API_KEY } from '$env/static/private';
 import OpenAI from 'openai';
 import type { Actions } from '@sveltejs/kit';
 
+const system_prompt = `
+    ### Instruction ###
+    Based on the input human language description, generate a color palette between 2 - 8 colors that fits the vibe.
+    The color palette should perfectly fit the theme of user input. For example, if the input is fire related, the output should be fire related colors like red and orange.
+    If the input is a brand name, the output should be the color palette of its logo.
+    Always return a JSON array of hexadecimal color codes even if the question does not make sense.
+
+    ### Expected format ###
+    A JSON array of hexadecimal color codes
+    ["#123456", "#FFFCCC"]
+
+    ### Examples ###
+    Q: The color of fire
+    A: ["#801100", "#b62203", "#d73502", "#fc6400", "#ff7500", "#fac000"]
+
+    Q: The colors of the ocean
+    A: ["#0000ff", "#1e90ff", "#00bfff", "#add8e6", "#b0e0e6", "#5f9ea0"]
+
+    Q: The colors of a forest
+    A: ["#013220", "#2a623d", "#38755b", "#76b041", "#8cc084", "#b3d9a1"]
+
+    Q: Google
+    A: ["#4285F4", "#DB4437", "#F4B400", "#0F9D58"]
+`;
+
 function isValidHexColor(hex: string) {
 	return /^#[0-9A-Fa-f]{6}$/.test(hex);
 }
@@ -21,35 +46,15 @@ export const actions: Actions = {
 		const prompt = data.get('prompt');
 
 		const user_prompt = `
-		### Instruction ###
-		Based on the input human language description, generate a color palette between 3 - 8 colors that fits the vibe.
-		The color palette should perfectly fit the theme of user input. For example, if the input is fire related, the output should be fire related colors like red and orange.
-		If the input is a brand name, the output should be the color palette of its logo.
-		Always return A JSON array of hexadecimal color codes even if the question does not make sense.
-
-		### Expected format ###
-		A JSON array of hexadecimal color codes
-		["#123456", "#FFFCCC"]
-
-		### Examples ###
-		Q: The color of fire
-		A: ["#801100", "#b62203", "#d73502", "#fc6400", "#ff7500", "#fac000"]
-
-		Q: The colors of the ocean
-		A: ["#0000ff", "#1e90ff", "#00bfff", "#add8e6", "#b0e0e6", "#5f9ea0"]
-
-		Q: The colors of a forest
-		A: ["#013220", "#2a623d", "#38755b", "#76b041", "#8cc084", "#b3d9a1"]
-
-		Q: Google
-		A: ["#4285F4", "#DB4437", "#F4B400", "#0F9D58"]
-
 		Q: ${prompt}
 		A:
 		`;
 		const response = await openai.chat.completions.create({
 			model: 'gpt-3.5-turbo',
-			messages: [{ role: 'user', content: user_prompt }],
+			messages: [
+				{ role: 'system', content: system_prompt },
+				{ role: 'user', content: user_prompt }
+			],
 			max_tokens: 150,
 			temperature: 0.7
 		});
