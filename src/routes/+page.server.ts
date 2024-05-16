@@ -50,7 +50,8 @@ export const actions: Actions = {
 		const response = await openai.chat.completions.create({
 			model: 'gpt-3.5-turbo',
 			messages: [{ role: 'user', content: user_prompt }],
-			max_tokens: 150
+			max_tokens: 150,
+			temperature: 0.7
 		});
 		const content = response.choices[0].message.content;
 
