@@ -73,16 +73,19 @@
 				name="prompt"
 				class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
 			/>
-			<button
-				type="submit"
-				class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-			>
-				{#if creating}
+
+			{#if creating}
+				<span>
 					<Spinner />
-				{:else}
+				</span>
+			{:else}
+				<button
+					type="submit"
+					class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+				>
 					Generate
-				{/if}
-			</button>
+				</button>
+			{/if}
 		</div>
 	</form>
 </div>

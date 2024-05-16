@@ -1,4 +1,4 @@
-<div role="status">
+<div role="status" class=" absolute end-2.5 bottom-2.5">
 	<svg
 		aria-hidden="true"
 		class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
