@@ -28,7 +28,7 @@
 </script>
 
 <div class="relative h-dvh">
-	<div class=" h-full w-full flex items-stretch justify-stretch">
+	<div class=" h-full w-full flex flex-col md:flex-row items-stretch justify-stretch">
 		{#if Array.isArray(form?.palette) && form.palette.length > 0}
 			{#each form.palette as color}
 				<div
