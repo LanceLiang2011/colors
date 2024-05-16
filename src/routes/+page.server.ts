@@ -25,6 +25,7 @@ export const actions: Actions = {
 		Based on the input human language description, generate a color palette between 3 - 8 colors that fits the vibe.
 		The color palette should perfectly fit the theme of user input. For example, if the input is fire related, the output should be fire related colors like red and orange.
 		If the input is a brand name, the output should be the color palette of its logo.
+		Always return A JSON array of hexadecimal color codes even if the question does not make sense.
 
 		### Expected format ###
 		A JSON array of hexadecimal color codes
