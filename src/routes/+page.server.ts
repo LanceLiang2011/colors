@@ -19,7 +19,6 @@ export const actions: Actions = {
 
 		const data = await request.formData();
 		const prompt = data.get('prompt');
-		console.log(prompt);
 
 		const user_prompt = `
 		### Instruction ###
@@ -53,7 +52,6 @@ export const actions: Actions = {
 			max_tokens: 150
 		});
 		const content = response.choices[0].message.content;
-		console.log(content);
 
 		let colorPalette;
 		try {

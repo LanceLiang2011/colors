@@ -1,5 +1,10 @@
 <script lang="ts">
 	export let form;
+	import { enhance } from '$app/forms';
+	import Spinner from '$lib/ui/spinner.svelte';
+
+	let creating = false;
+
 	function copyable(node: HTMLElement) {
 		function handleClick() {
 			const textToCopy = node.innerText || node.textContent;
@@ -27,11 +32,13 @@
 		{#if Array.isArray(form?.palette) && form.palette.length > 0}
 			{#each form.palette as color}
 				<div
-					use:copyable
 					class="color-block flex-1 flex text-3xl font-bold items-start pt-80 justify-center"
 					style="--color:{color};"
 				>
-					{color}
+					<span
+						use:copyable
+						class=" text-gray-50 bg-gray-900/60 px-8 py-4 rounded-md cursor-pointer">{color}</span
+					>
 				</div>
 			{/each}
 		{:else}
@@ -39,7 +46,17 @@
 			<div class=" w-full h-full bg-blue-300"></div>
 		{/if}
 	</div>
-	<form method="POST" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+	<form
+		method="POST"
+		use:enhance={() => {
+			creating = true;
+			return async ({ update }) => {
+				await update();
+				creating = false;
+			};
+		}}
+		class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+	>
 		<label
 			for="input"
 			class="block mb-2 text-lg font-medium text-gray-100 bg-gray-900/50 text-center"
@@ -50,6 +67,7 @@
 		{/if}
 		<div>
 			<input
+				disabled={creating}
 				type="text"
 				id="input"
 				name="prompt"
@@ -58,8 +76,13 @@
 			<button
 				type="submit"
 				class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-				>Generate</button
 			>
+				{#if creating}
+					<Spinner />
+				{:else}
+					Generate
+				{/if}
+			</button>
 		</div>
 	</form>
 </div>
