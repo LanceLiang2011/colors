@@ -60,7 +60,7 @@
 		<label
 			for="input"
 			class="block mb-2 text-lg font-medium text-gray-100 bg-gray-900/50 text-center"
-			>Describe your colors. (Try Color of Google, Color of Forest, etc.)</label
+			>Describe your colors. (Try Color of Pepsi, Color of Forest, etc.)</label
 		>
 		{#if form?.error}
 			<p class=" text-red-800">{form.error}</p>
