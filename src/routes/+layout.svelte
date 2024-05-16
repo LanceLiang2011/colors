@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>AI Color Palette Generator</title>
+	<title>Color Palette Generator</title>
 	<meta
 		name="description"
 		content="Generate custom color palettes based on your theme or brand using OpenAI's API."
@@ -13,15 +13,16 @@
 		property="og:description"
 		content="Generate custom color palettes based on your theme or brand using OpenAI's API."
 	/>
-	<meta property="og:image" content="/path/to/your/image.png" />
-	<meta property="og:url" content="https://yourwebsite.com/color-palette-generator" />
+	<meta property="og:image" content="https://aigen-color.netlify.app/image.png" />
+	<meta property="og:url" content="https://aigen-color.netlify.app/" />
+	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Color Palette Generator" />
 	<meta
 		name="twitter:description"
 		content="Generate custom color palettes based on your theme or brand using OpenAI's API."
 	/>
-	<meta name="twitter:image" content="/path/to/your/image.png" />
+	<meta name="twitter:image" content="https://aigen-color.netlify.app/image.png" />
 </svelte:head>
 
 <main>
